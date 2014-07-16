@@ -12,13 +12,37 @@ dialog --title 'Welcome Message !!' --backtitle 'Jagdish Jat' \
  --msgbox 'Hello, Friends !
  Welcomes you on the field of CryptoCurrency. A Secure way of Trading And Mining' 10 80
 
+########### Some Constant 
+LOG_FILE="`mktemp`"
+touch $LOG_FILE
+chmod 777 $LOG_FILE
+
+## INSTALLATION OF REQUIRED PACKAGES
+sudo apt-get update 
+sudo apt-get upgrade 
+sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev 
+sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git 
+
 ############################# Coin Basic Information ################################################
+
 ########### Coin Name #######
 dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
 " --inputbox "Enter your Coin name please" 8 60 2> /tmp/coinname
 sel=$?
 case $sel in
   0) coin=`cat /tmp/coinname`
+  	while [ -z "$coin" ];
+  	do
+		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
+		" --inputbox "Coin Name not be Empty !!, please Re-Enter " 8 60 2> /tmp/coinname
+		sel=$?
+		case $sel in
+		0) coin=`cat /tmp/coinname`
+		1) echo "Cancel is Press" ;;
+  		255) echo "[ESCAPE] key pressed" ;;
+		esac
+	done
+	
 	d=d
 	coind=$coin$d ;;
   1) echo "Cancel is Press" ;;
@@ -31,15 +55,19 @@ dialog --title "Wallet Information - To take input from you" --backtitle "Jagdis
 sel=$?
 case $sel in
   0) algo=`cat /tmp/algoname`;;
+  	while [ -z "$algo" ];
+  	do
+  		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
+		" --inputbox "Algorithim name not be Empty !!. Please Re-Enter like Scrypt, sha256d" 8 60 2> /tmp/algoname
+		sel=$?
+		case $sel in
+		 0) algo=`cat /tmp/algoname`;;
+		 1) echo "Cancel is Press" ;;
+  		255) echo "[ESCAPE] key pressed" ;;
+  	done
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
 esac
-
-## INSTALLATION OF REQUIRED PACKAGES
-sudo apt-get update 
-sudo apt-get upgrade 
-sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev 
-sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git 
 
 ######################## Source Installation  #######################################################
 dialog --title "Source Code Information - To take input from you" --backtitle "Jagdish Jat\
@@ -47,9 +75,24 @@ dialog --title "Source Code Information - To take input from you" --backtitle "J
 sel=$?
 case $sel in
   0) source=`cat /tmp/sourcecode`
+  	while [ -z "$algo" ];
+  	do
+  		dialog --title "Source Code Information - To take input from you" --backtitle "Jagdish Jat\
+		" --inputbox "Source Code Address Not be Empty !!. Please Re-Enter like git://github.com/coin.git " 8 60 2>/tmp/sourcecode
+		sel=$?
+		case $sel in
+  		0) source=`cat /tmp/sourcecode`
+  		1) echo "Cancel is Press" ;;
+  		255) echo "[ESCAPE] key pressed" ;;
+  	done
+	
 	#Grab the latest version of Coind using Git
 	cd ~
-	sudo git clone $source $coin
+	sudo git clone $source $coin $LOG_FILE >> $LOG_FILE 2>&1 
+	if [ $? -ne 0 ];then
+		echo "ERROR: Failed to get file from GitHub, Please check logfile $LOG_FILE" 1>&2
+		exit 1
+	fi
 
 	#compile the coind
 	# Change to src folder
@@ -57,10 +100,14 @@ case $sel in
 	cd $coin/src/
 
 	#Compile coind
-	sudo make -f makefile.unix USE_UPNP=-
+	sudo make -f makefile.unix USE_UPNP=- >> $LOG_FILE 2>&1
+		if [ $? -ne 0 ]; then
+			echo "ERROR: Failed to configure $coin Daemon. Please check logfile $LOG_FILE" 1>&2
+			exit 1
+		fi
 
 	#Copy to System path
-	sudo cp $coind /usr/bin
+	sudo cp -rf $coind /usr/bin
 	cd ~
 
 	#Make confige file 
