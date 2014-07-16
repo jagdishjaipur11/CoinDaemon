@@ -3,7 +3,7 @@
 # Coind Generation Script File 
 # Created By : Jagdish Jat
 # Created For : Linux World
-# # Tested on : ubuntu 14.04 Server
+# # Tested on : ubuntu 14.04 LTS Server
 #
 ####################################################################################################### 
 
@@ -34,6 +34,12 @@ case $sel in
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
 esac
+
+## INSTALLATION OF REQUIRED PACKAGES
+sudo apt-get update 
+sudo apt-get upgrade 
+sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev 
+sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git 
 
 ######################## Source Installation  #######################################################
 dialog --title "Source Code Information - To take input from you" --backtitle "Jagdish Jat\
