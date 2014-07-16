@@ -8,7 +8,7 @@
 ####################################################################################################### 
 
 ############################ WelCome Information For End User #########################################
-dialog --title 'Welcome Message !!' --backtitle 'BitNorm.com' \
+dialog --title 'Welcome Message !!' --backtitle 'Jagdish Jat' \
  --msgbox 'Hello, Friends !
  Welcomes you on the field of CryptoCurrency. A Secure way of Trading And Mining' 10 80
 
