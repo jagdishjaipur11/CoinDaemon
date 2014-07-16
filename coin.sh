@@ -14,7 +14,7 @@ dialog --title 'Welcome Message !!' --backtitle 'BitNorm.com' \
 
 ############################# Coin Basic Information ################################################
 ########### Coin Name #######
-dialog --title "Wallet Information - To take input from you" --backtitle "BitNorm.com\
+dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
 " --inputbox "Enter your Coin name please" 8 60 2> /tmp/coinname
 sel=$?
 case $sel in
@@ -26,7 +26,7 @@ case $sel in
 esac
 
 ######Algorithm Name ########
-dialog --title "Wallet Information - To take input from you" --backtitle "BitNorm.com\
+dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
 " --inputbox "Enter your Algorithim Name please like Scrypt, sha256d" 8 60 2> /tmp/algoname
 sel=$?
 case $sel in
@@ -36,7 +36,7 @@ case $sel in
 esac
 
 ######################## Source Installation  #######################################################
-dialog --title "Source Code Information - To take input from you" --backtitle "BitNorm.com\
+dialog --title "Source Code Information - To take input from you" --backtitle "Jagdish Jat\
 " --inputbox "Enter your Source Code Address like git://github.com/coin.git " 8 60 2>/tmp/sourcecode
 sel=$?
 case $sel in
@@ -66,7 +66,7 @@ esac
 
 ############################### Configuration File  #################################################
 #### FOr RPC PORT #################
-dialog --title "RPC PORT Information - To take input from you" --backtitle "BitNorm.com\
+dialog --title "RPC PORT Information - To take input from you" --backtitle "Jagdish Jat\
 " --inputbox "Enter RPC Port for Coin Daemon " 8 60 2> /tmp/rname
 sel=$?
 case $sel in
@@ -79,7 +79,7 @@ case $sel in
 esac
 
 #### For Hostname ###
-dialog --title "HostName Information - To take input from you" --backtitle "BitNorm.com\
+dialog --title "HostName Information - To take input from you" --backtitle "Jagdish Jat\
 " --inputbox "Enter Hostname for Coin Daemon please like localhost,domain.com" 8 60 2> /tmp/hname
 sel=$?
 case $sel in
@@ -108,7 +108,7 @@ rpcconnect=$hostname" > $file
 esac
 
 ###############################  COIN Installation SUMMARY  ######################################################
-dialog --title 'Summary' --backtitle 'BitNorm Organization' --msgbox "Coin Name = $coin
+dialog --title 'Summary' --backtitle 'Jagdish Jat' --msgbox "Coin Name = $coin
 Coind Daemon = $coind
 Algorithm = $algo
 Source Address = $source  
