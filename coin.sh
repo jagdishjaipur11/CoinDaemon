@@ -30,9 +30,8 @@ dialog --title "Wallet Information - To take input from you" --backtitle "Jagdis
 " --inputbox "Enter your Coin name please" 8 60 2> /tmp/coinname
 sel=$?
 case $sel in
-  0) coin=`cat /tmp/coinname`;;
-  	while [ -z "$coin" ];
-  	do
+  0) coin=`cat /tmp/coinname`
+  	while [ -z "$coin" ];do
 		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
 		" --inputbox "Coin Name not be Empty !!, please Re-Enter " 8 60 2> /tmp/coinname
 		sel=$?
@@ -54,7 +53,7 @@ dialog --title "Wallet Information - To take input from you" --backtitle "Jagdis
 " --inputbox "Enter your Algorithim Name please like Scrypt, sha256d" 8 60 2> /tmp/algoname
 sel=$?
 case $sel in
-  0) algo=`cat /tmp/algoname`;;
+  0) algo=`cat /tmp/algoname`
   	while [ -z "$algo" ];
   	do
   		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
