@@ -18,10 +18,10 @@ touch $LOG_FILE
 chmod 777 $LOG_FILE
 
 ## INSTALLATION OF REQUIRED PACKAGES
-sudo apt-get update 
-sudo apt-get upgrade 
-sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev 
-sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git 
+#sudo apt-get update 
+#sudo apt-get upgrade 
+#sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev 
+#sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git 
 
 ############################# Coin Basic Information ################################################
 
@@ -63,7 +63,7 @@ case $sel in
 		1) echo "Cancel is Press" ;;
   		255) echo "[ESCAPE] key pressed" ;;
   	esac
-  	done
+  	done;;
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
 esac
