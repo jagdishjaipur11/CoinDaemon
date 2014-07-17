@@ -30,7 +30,7 @@ dialog --title "Wallet Information - To take input from you" --backtitle "Jagdis
 " --inputbox "Enter your Coin name please" 8 60 2> /tmp/coinname
 sel=$?
 case $sel in
-  0) coin=`cat /tmp/coinname`
+  0) coin=`cat /tmp/coinname`;;
   	while [ -z "$coin" ];
   	do
 		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
