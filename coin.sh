@@ -87,7 +87,7 @@ case $sel in
 	
 	#Grab the latest version of Coind using Git
 	cd ~
-	sudo git clone $source $coin $LOG_FILE >> $LOG_FILE 2>&1 
+	sudo git clone $source $coin >> $LOG_FILE 2>&1 
 	if [ $? -ne 0 ];then
 		echo "ERROR: Failed to get file from GitHub, Please check logfile $LOG_FILE" 1>&2
 		exit 1
