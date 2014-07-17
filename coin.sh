@@ -31,22 +31,22 @@ dialog --title "Wallet Information - To take input from you" --backtitle "Jagdis
 sel=$?
 case $sel in
   0) coin=`cat /tmp/coinname`
-  	while [ -z "$coin" ];do
-		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
-		" --inputbox "Coin Name not be Empty !!, please Re-Enter " 8 60 2> /tmp/coinname
-		sel=$?
-		case $sel in
-		0) coin=`cat /tmp/coinname`
+        while [ -z "$coin" ];do
+                dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
+        " --inputbox "Coin Name not be Empty !!, please Re-Enter " 8 60 2> /tmp/coinname
+	sel=$?
+	case $sel in
+		0) coin=`cat /tmp/coinname`;;
 		1) echo "Cancel is Press" ;;
-  		255) echo "[ESCAPE] key pressed" ;;
-		esac
+   		255) echo "[ESCAPE] key pressed" ;;
+	esac
 	done
-	
 	d=d
 	coind=$coin$d ;;
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
 esac
+
 
 ######Algorithm Name ########
 dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
@@ -54,15 +54,15 @@ dialog --title "Wallet Information - To take input from you" --backtitle "Jagdis
 sel=$?
 case $sel in
   0) algo=`cat /tmp/algoname`
-  	while [ -z "$algo" ];
-  	do
-  		dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
-		" --inputbox "Algorithim name not be Empty !!. Please Re-Enter like Scrypt, sha256d" 8 60 2> /tmp/algoname
-		sel=$?
-		case $sel in
-		 0) algo=`cat /tmp/algoname`;;
-		 1) echo "Cancel is Press" ;;
+  	while [ -z "$algo" ];do
+  	dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
+	" --inputbox "Algorithim name not be Empty !!. Please Re-Enter like Scrypt, sha256d" 8 60 2> /tmp/algoname
+	sel=$?
+	case $sel in
+		0) algo=`cat /tmp/algoname`;;
+		1) echo "Cancel is Press" ;;
   		255) echo "[ESCAPE] key pressed" ;;
+  	esac
   	done
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
@@ -74,15 +74,15 @@ dialog --title "Source Code Information - To take input from you" --backtitle "J
 sel=$?
 case $sel in
   0) source=`cat /tmp/sourcecode`
-  	while [ -z "$algo" ];
-  	do
-  		dialog --title "Source Code Information - To take input from you" --backtitle "Jagdish Jat\
-		" --inputbox "Source Code Address Not be Empty !!. Please Re-Enter like git://github.com/coin.git " 8 60 2>/tmp/sourcecode
-		sel=$?
-		case $sel in
-  		0) source=`cat /tmp/sourcecode`
+  	while [ -z "$algo" ];do
+  	dialog --title "Source Code Information - To take input from you" --backtitle "Jagdish Jat\
+	" --inputbox "Source Code Address Not be Empty !!. Please Re-Enter like git://github.com/coin.git " 8 60 2>/tmp/sourcecode
+	sel=$?
+	case $sel in
+  		0) source=`cat /tmp/sourcecode`;;
   		1) echo "Cancel is Press" ;;
   		255) echo "[ESCAPE] key pressed" ;;
+  	esac
   	done
 	
 	#Grab the latest version of Coind using Git
