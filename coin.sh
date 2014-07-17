@@ -123,6 +123,16 @@ dialog --title "RPC PORT Information - To take input from you" --backtitle "Jagd
 sel=$?
 case $sel in
   0) rpcport=`cat /tmp/rname`
+  	while [ -z "$algo" ];do
+  	dialog --title "RPC PORT Information - To take input from you" --backtitle "Jagdish Jat\
+	" --inputbox "RPC Port Not be Empty !!. Please Re-Enter like 9332 " 8 60 2>/tmp/rname
+	sel=$?
+	case $sel in
+  		0) source=`cat /tmp/rname`;;
+  		1) echo "Cancel is Press" ;;
+  		255) echo "[ESCAPE] key pressed" ;;
+  	esac
+  	done
 	user=rpc
 	rpcuser=$coin$user
 	rpcpassword=Nx3dgd84753qhdfgh5478UnvVKT;;
@@ -136,6 +146,17 @@ dialog --title "HostName Information - To take input from you" --backtitle "Jagd
 sel=$?
 case $sel in
   0) hostname=`cat /tmp/hname`
+  	while [ -z "$algo" ];do
+  	dialog --title "HostName Information - To take input from you" --backtitle "Jagdish Jat\
+	" --inputbox "Hostname Not be Empty !!. Please Re-Enter like localhost, domain.com" 8 60 2> /tmp/hname
+	sel=$?
+	case $sel in
+  		0) hostname=`cat /tmp/hname`;;
+  		1) echo "Cancel is Press" ;;
+  		255) echo "[ESCAPE] key pressed" ;;
+  	esac
+  	done
+  	
 	#enter details in coind config file
 sudo echo "
 ## $coin.conf -- configuration file for $coin
@@ -147,13 +168,19 @@ daemon=1
 listen=1
 gen=0
 rpcport=$rpcport
-rpcallow=*
+rpcallowip=*
 rpcconnect=$hostname" > $file
 
 	#get address from coindi
 	cd ~
 	sudo $coind
-	sudo $coind getaccountaddress "" > /tmp/address
+	sudo $coind getaccountaddress ""  >> $LOG_FILE 2>&1  
+	if [ $? -ne 0 ]; then
+		echo "ERROR: Failed to start coind, Please check logfile $LOG_FILE" 1>&2
+		exit 1
+	fi
+	else
+    	sudo $coind getaccountaddress "" > /tmp/address
 	wallet=`cat /tmp/address`;;
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
