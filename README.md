@@ -6,4 +6,10 @@ Installation of coin daemon using shell script <br />
 This is shell script for installing coin daemon in Ubuntu server. <br />
 Requirements : <br />
 OS : Ubuntu 14.04 LTS (Tested) // Support for every *Nix based system <br />
-User :  Root or use sudo
+User :  Root <br />
+Coin : some basic requirements of coins like coin name, algo name, git source, hostname, RPC Port <br />
+
+Use following guide for easy installation of coin daemon <br />
+1. Download/Clone coin.sh : 
+2. File permission : chmod +x coin.sh
+3. Run file : ./coin.sh OR sh coin.sh
