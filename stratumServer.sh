@@ -1,16 +1,57 @@
 #! /bin/bash
+#This program is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 2 of the License, or (at your option)
+#any later version.
+#
+#This program is distributed in the hope that it will be useful, but WITHOUT ANY
+#WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#See the GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License along with this program.
+#If not, see http://www.gnu.org/licenses/.
+
+#######################################################################################################
+# Coind Generation Script File
+# Created By : Jagdish Jat
+# Created For : Linux World
+# # Tested on : ubuntu 14.04 LTS Server
+#
+####################################################################################################### 
 ############################ MPOS  MESSAGE BOX ###################################################
 dialog --title 'Welcome to Stratum Installation !!' --backtitle 'Jagdish Jat' --msgbox 'Hello, Friends ! 
  Welcomes you to for Stratum Installation' 10 80
+
+### Install required packages ##
+sudo apt-get install python-twisted python-mysqldb python-dev python-setuptools python-memcache python-simplejson python-pylibmc 
+easy_install -U distribute >> $LOG_FILE 2>&1
+if [ $? -ne 0 ]; then
+echo "ERROR: Failed to install required packages, Please check logfile $LOG_FILE" 1>&2
+exit 1
+fi
+	
+
 ########### Stratum Download  #######
 dialog --title "Stratum Information" --backtitle "Jagdish\
-" --inputbox "Enter your directory  name please" 8 60 2>dname
+" --inputbox "Enter your directory  name where you want to install stratum " 8 60 2>dname
 sel=$?
 case $sel in
   0) dir=`cat dname`
+  	 while [ -z "$coin" ];do
+                dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
+		" --inputbox "Coin Name not be Empty !!, please Re-Enter " 8 60 2> /tmp/coinname
+		sel=$?
+		case $sel in
+  			0) dir=`cat dname`;;
+  			1) echo "Cancel is Press" ;;
+    			255) echo "[ESCAPE] key pressed" ;;
+		esac
+	done
+	
+	#Change directory where startum will be installed
         cd /var/www/$dir
-	sudo apt-get install python-twisted python-mysqldb python-dev python-setuptools python-memcache python-simplejson python-pylibmc
-	easy_install -U distribute
+	#sudo apt-get install python-twisted python-mysqldb python-dev python-setuptools python-memcache python-simplejson python-pylibmc
+	#easy_install -U distribute
 
 	#Download Stratum-mining package 
 	sudo git clone https://github.com/ahmedbodi/stratum-mining.git
