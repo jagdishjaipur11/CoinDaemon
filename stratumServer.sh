@@ -83,7 +83,7 @@ case $sel in
 esac
 
 ############################# PORT INFORMATION ############
-dialog --title "Stratum Information" --backtitle "BitNorm Organization\
+dialog --title "Stratum Information" --backtitle "Jagdish Jat\
 " --inputbox "Enter socket or port number please" 8 60 2>socname
 sel=$?
 case $sel in
@@ -101,7 +101,7 @@ case $sel in
   255) echo "[ESCAPE] key pressed" ;;
 esac
 ################### POOL Difficulty ######################################
-dialog --title "Stratum Installation" --backtitle "BitNorm Organization\
+dialog --title "Stratum Installation" --backtitle "Jagdish Jat\
 " --inputbox "Enter Intial Difficuly for Pool please" 8 60 2>poolt
 sel=$?
 case $sel in
