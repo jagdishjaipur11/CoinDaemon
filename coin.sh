@@ -22,7 +22,7 @@
 ############################ WelCome Information For End User #########################################
 dialog --title 'Welcome Message !!' --backtitle 'Jagdish Jat' \
  --msgbox 'Hello, Friends !
- Welcomes you on the field of CryptoCurrency. A Secure way of Trading And Mining' 10 80
+ Welcomes you on the field of CryptoCurrency.' 10 80
 
 ########### Some Constant 
 LOG_FILE="`mktemp`"
@@ -32,13 +32,13 @@ chmod 777 $LOG_FILE
 ## INSTALLATION OF REQUIRED PACKAGES
 sudo apt-get update 
 sudo apt-get upgrade 
-sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev  >> $LOG_FILE 2>&1
+sudo apt-get install libssl-dev libdb-dev libdb++-dev libqrencode-dev qt4-qmake libqtgui4 libqt4-dev  -y >> $LOG_FILE 2>&1
 if [ $? -ne 0 ]; then
 	echo "ERROR: Failed to install required packages, Please check logfile $LOG_FILE" 1>&2
 	exit 1
 fi
 
-sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git >> $LOG_FILE 2>&1
+sudo apt-get install libminiupnpc-dev libboost-all-dev build-essential git -y >> $LOG_FILE 2>&1
 if [ $? -ne 0 ]; then
 	echo "ERROR: Failed to install required packages, Please check logfile $LOG_FILE" 1>&2
 	exit 1
@@ -48,13 +48,13 @@ fi
 
 ########### Coin Name #######
 dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
-" --inputbox "Enter your Coin name please" 8 60 2> /tmp/coinname
+" --inputbox "Enter your Coin name  : " 8 60 2> /tmp/coinname
 sel=$?
 case $sel in
   0) coin=`cat /tmp/coinname`
         while [ -z "$coin" ];do
                 dialog --title "Wallet Information - To take input from you" --backtitle "Jagdish Jat\
-        " --inputbox "Coin Name not be Empty !!, please Re-Enter " 8 60 2> /tmp/coinname
+        " --inputbox "Coin Name not be Empty !!, Re-Enter for Installation" 8 60 2> /tmp/coinname
 	sel=$?
 	case $sel in
 		0) coin=`cat /tmp/coinname`;;
@@ -108,31 +108,31 @@ case $sel in
 	
 	#Grab the latest version of Coind using Git
 	cd ~
-	sudo git clone $source $coin >> $LOG_FILE 2>&1 
+	git clone $source $coin >> $LOG_FILE 2>&1 
 	if [ $? -ne 0 ];then
 		echo "ERROR: Failed to get file from GitHub, Please check logfile $LOG_FILE" 1>&2
 		exit 1
 	fi
-
 	#compile the coind
 	# Change to src folder
 	cd ~
 	cd $coin/src/
 
 	#Compile coind
-	sudo make -f makefile.unix USE_UPNP=- >> $LOG_FILE 2>&1
+	make -f makefile.unix USE_UPNP=- >> $LOG_FILE 2>&1
 		if [ $? -ne 0 ]; then
 			echo "ERROR: Failed to configure $coin Daemon. Please check logfile $LOG_FILE" 1>&2
 			exit 1
 		fi
 
 	#Copy to System path
-	sudo cp -rf $coind /usr/bin
+	cp -rf $coind /usr/bin
 	cd ~
 
 	#Make confige file 
-	sudo $coind getaccountaddress "" 2> /tmp/cname
-	file=`grep /  /tmp/cname`;;
+	$coind getaccountaddress "" 2> /tmp/cname
+	file=`grep /  /tmp/cname`
+	echo $file;;
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
 esac
@@ -179,7 +179,7 @@ case $sel in
   	done
   	
 	#enter details in coind config file
-sudo echo "
+echo "
 ## $coin.conf -- configuration file for $coin
 ##
 rpcuser=$rpcuser
@@ -194,15 +194,17 @@ rpcconnect=$hostname" > $file
 
 	#get address from coindi
 	cd ~
-	sudo $coind
-	sudo $coind getaccountaddress ""  >> $LOG_FILE 2>&1  
+	$coind
+	sleep 30
+	$coind getaccountaddress ""  >> $LOG_FILE 2>&1  
 	if [ $? -ne 0 ]; then
 		echo "ERROR: Failed to start coind, Please check logfile $LOG_FILE" 1>&2
 		exit 1
-	fi
+	
 	else
-    	sudo $coind getaccountaddress "" > /tmp/address
-	wallet=`cat /tmp/address`;;
+    	$coind getaccountaddress "" > /tmp/address
+	wallet=`cat /tmp/address`
+	fi ;;
   1) echo "Cancel is Press" ;;
   255) echo "[ESCAPE] key pressed" ;;
 esac
