@@ -13,3 +13,5 @@ Use following guide for easy installation of coin daemon <br />
 2. cd CoinDaemon <br />
 3. File permission : chmod +x coin.sh <br />
 4. Run file : ./coin.sh OR sh coin.sh 
+
+Now you can Use Script for Coin Daemon installation using browser
